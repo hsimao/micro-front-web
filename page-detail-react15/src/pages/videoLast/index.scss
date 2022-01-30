@@ -1,0 +1,18 @@
+.video-last {
+  &-container {
+    width: 100%;
+  }
+
+  &-content {
+    display: flex;
+    margin: 0 auto;
+    width: 1200px;
+  }
+  &-wrapper {
+    margin-right: 40px;
+    width: 738px;
+  }
+  &-news {
+    flex: 1;
+  }
+}
