@@ -7,7 +7,6 @@
     "start": "node ./build/run.js",
     "download": "node ./build/init.js"
   },
-  "author": "yancy",
   "license": "ISC",
   "devDependencies": {
     "supervisor": "^0.12.0"
