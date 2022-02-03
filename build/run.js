@@ -2,6 +2,7 @@ const childProcess = require("child_process");
 const path = require("path");
 
 const filePath = {
+  main: path.join(__dirname, "../main"),
   "page-home-vue3": path.join(__dirname, "../page-home-vue3"),
   "page-energy-vue2": path.join(__dirname, "../page-energy-vue2"),
   "page-detail-react15": path.join(__dirname, "../page-detail-react15"),
