@@ -2,8 +2,8 @@
   <AppHeader />
   <MainNav />
   <div class="sub-container">
-    <Loading v-if="loading" />
-    <div v-else id="micro-container">子應用內容</div>
+    <Loading v-show="loading" />
+    <div v-show="!loading" id="micro-container">子應用內容</div>
   </div>
   <AppFooter />
 </template>

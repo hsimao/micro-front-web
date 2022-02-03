@@ -1,5 +1,6 @@
 import { filterAppByRoute } from '../utils'
 import { getMainLifecycle } from '../const/mainLifeCycle'
+import { loadHtml } from '../loader'
 
 export const lifecycle = async () => {
   // 取得上一個子應用
@@ -21,9 +22,10 @@ export const beforeLoad = async (app) => {
   await runMainLifeCycle('beforeLoad')
   app && app.beforeLoad && app.beforeLoad()
 
-  const appContext = null
+  const subApp = await loadHtml(app)
+  subApp && subApp.beforeLoad && subApp.beforeLoad()
 
-  return appContext
+  return subApp
 }
 
 export const mounted = async (app) => {
