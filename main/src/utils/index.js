@@ -7,18 +7,18 @@ export const registerApp = (list) => {
     beforeLoad: [
       () => {
         loading.changeLoading(true)
-        console.log('beforeLoad')
+        console.log('Main beforeLoad')
       },
     ],
     mounted: [
       () => {
         loading.changeLoading(false)
-        console.log('mounted')
+        console.log('Main mounted')
       },
     ],
     destoryed: [
       () => {
-        console.log('destoryed')
+        console.log('Main destoryed')
       },
     ],
   })
