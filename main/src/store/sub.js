@@ -1,7 +1,7 @@
 export const subNavList = [
   {
     name: 'react15',
-    activeRule: '/react15',
+    activeRule: '/react15', // NOTE: 拿來跟 window.location.pathname 判斷用
     container: '#micro-container',
     entry: '//localhost:9002/',
   },
