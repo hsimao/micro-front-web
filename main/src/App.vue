@@ -2,7 +2,7 @@
   <AppHeader />
   <MainNav />
   <div class="sub-container">
-    <Loading v-if="isLoading" />
+    <Loading v-if="loading" />
     <div v-else id="micro-container">子應用內容</div>
   </div>
   <AppFooter />
@@ -14,7 +14,7 @@ import AppFooter from '@/components/AppFooter'
 import MainNav from '@/components/MainNav'
 import Loading from '@/components/Loading'
 
-import { ref } from 'vue'
+import { loading } from './store'
 
 export default {
   name: 'App',
@@ -25,13 +25,7 @@ export default {
     Loading,
   },
   setup() {
-    const isLoading = ref(true)
-
-    setTimeout(() => {
-      isLoading.value = false
-    }, 5000)
-
-    return { isLoading }
+    return { loading: loading.loadingStatus }
   },
 }
 </script>

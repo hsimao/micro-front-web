@@ -1,12 +1,14 @@
 import { setList, getList } from './const/subApps'
 import { currentApp } from './utils'
 import { rewriteRouter } from './router/rewriteRouter'
+import { setMainLifecycle } from './const/mainLifeCycle'
 
 // 路由攔截
 rewriteRouter()
 
-export const registerMicroApps = (appList) => {
+export const registerMicroApps = (appList, lifeCycle) => {
   setList(appList)
+  setMainLifecycle(lifeCycle)
 }
 
 export const start = () => {
