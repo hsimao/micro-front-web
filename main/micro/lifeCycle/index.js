@@ -20,7 +20,6 @@ export const lifecycle = async () => {
 
 export const beforeLoad = async (app) => {
   await runMainLifeCycle('beforeLoad')
-  app && app.beforeLoad && app.beforeLoad()
 
   const subApp = await loadHtml(app)
   subApp && subApp.beforeLoad && subApp.beforeLoad()
