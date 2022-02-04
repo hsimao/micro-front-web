@@ -1,4 +1,5 @@
 import { fetchResource } from '../utils/fetchResource'
+import { performScript } from '../sandbox/performScript'
 
 export const loadHtml = async (app) => {
   const subAppContainer = document.querySelector(app.container)
@@ -8,8 +9,12 @@ export const loadHtml = async (app) => {
   }
 
   const [dom, scripts] = await parseHtml(app.entry)
-  console.log('scripts', scripts)
   subAppContainer.innerHTML = dom
+
+  // 執行 script
+  scripts.forEach((item) => {
+    performScript(item)
+  })
 
   return app
 }
@@ -23,20 +28,18 @@ export const parseHtml = async (entry) => {
   const [dom, scriptUrl, script] = await getResources(div, entry)
 
   const fetchedScripts = await Promise.all(
-    scriptUrl.map((item) => fetchResource(item))
+    scriptUrl.map(async (item) => await fetchResource(item))
   )
 
   const allScript = script.concat(fetchedScripts)
-
-  return [dom, allScript]
+  return [dom.outerHTML, allScript]
 }
 
 export const getResources = async (root, entry) => {
   const scriptUrl = []
   const script = []
-  const dom = root.outerHTML
 
-  function deepParse(element) {
+  async function deepParse(element) {
     const children = element.children
     const parent = element.parentNode
 
@@ -56,10 +59,7 @@ export const getResources = async (root, entry) => {
       }
 
       if (parent) {
-        parent.replaceChild(
-          document.createComment('此 js 文件已经被微前端替换'),
-          element
-        )
+        parent.replaceChild(document.createElement('script'), element)
       }
     }
 
@@ -73,14 +73,23 @@ export const getResources = async (root, entry) => {
           scriptUrl.push(`http:${entry}/${href}`)
         }
       }
+
+      if (parent) {
+        parent.replaceChild(document.createElement('link'), element)
+      }
     }
 
+    // 將原本 script 移除替換掉
     for (let i = 0; i < children.length; i++) {
-      deepParse(children[i])
+      children[i].replaceKey = `${i}-${Date.now()}`
+      await deepParse(children[i])
     }
   }
 
-  deepParse(root)
+  await deepParse(root)
 
-  return [dom, scriptUrl, script]
+  // 過濾掉重複 scriptUrl, 因為 link 可能跟 script 載入了重複腳本
+  const uniqueScriptUrlList = [...new Set(scriptUrl)]
+
+  return [root, uniqueScriptUrlList, script]
 }

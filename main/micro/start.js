@@ -23,9 +23,9 @@ export const start = () => {
   if (app) {
     const { pathname, hash } = window.location
     const url = `${pathname}${hash}`
-    window.history.pushState('', '', url)
-
     // NOTE: 拿來阻擋重複觸發微服務路由邏輯用
     window.__CURRENT_SUB_APP__ = app.activeRule
+
+    window.history.pushState('', '', url)
   }
 }
