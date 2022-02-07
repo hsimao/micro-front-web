@@ -2,6 +2,7 @@ import { setList, getList } from './const/subApps'
 import { getCurrentApp } from './utils'
 import { rewriteRouter } from './router/rewriteRouter'
 import { setMainLifecycle } from './const/mainLifeCycle'
+import { lifecycle } from './lifeCycle'
 
 // 路由攔截
 rewriteRouter()
@@ -28,4 +29,6 @@ export const start = () => {
 
     window.history.pushState('', '', url)
   }
+
+  lifecycle()
 }
