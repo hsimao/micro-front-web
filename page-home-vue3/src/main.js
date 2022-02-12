@@ -19,14 +19,18 @@ export async function bootstrap() {
 
 export async function mount(app) {
   setMain(app)
+  console.log('vue3 mount')
   render()
 }
 
 export async function unmount(ctx) {
-  instance.unmount()
+  console.log('vue3 unmount')
+  instance?.unmount()
   instance = null
-  const { container } = ctx
-  if (container) {
-    document.querySelector(container).innerHTML = ''
+  if (ctx) {
+    const { container } = ctx
+    if (container) {
+      document.querySelector(container).innerHTML = ''
+    }
   }
 }

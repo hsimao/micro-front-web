@@ -10,7 +10,8 @@ export const lifecycle = async () => {
 
   if (!nextApp) return
 
-  if (prevApp) {
+  if (prevApp && prevApp.unmount) {
+    prevApp.proxy && prevApp.proxy.inactive()
     await destoryed(prevApp)
   }
 
