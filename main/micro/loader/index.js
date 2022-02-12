@@ -1,5 +1,5 @@
 import { fetchResource } from '../utils/fetchResource'
-import { preformScriptForEval } from '../sandbox/performScript'
+import { sandBox } from '../sandbox'
 
 export const loadHtml = async (app) => {
   const subAppContainer = document.querySelector(app.container)
@@ -13,7 +13,7 @@ export const loadHtml = async (app) => {
 
   // 執行 script
   scripts.forEach((item) => {
-    preformScriptForEval(item)
+    sandBox(app, item)
   })
 
   return app

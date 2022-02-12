@@ -23,13 +23,13 @@ export default {
     NavTitle,
     IndexAd,
     CarSwapper,
-    NewsList,
+    NewsList
   },
   setup() {
-    if (main.appInfo) {
-      // main.appInfo.crumbsState.setCrumbs([])
+    if (main?.appInfo) {
+      main.appInfo.crumbsState.setCrumbs([])
     }
-  },
+  }
 }
 </script>
 
