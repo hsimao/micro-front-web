@@ -28,13 +28,13 @@ export const beforeLoad = async (app) => {
 }
 
 export const mounted = async (app) => {
-  app && app.mounted && app.mounted()
+  app && app.mount && app.mount()
   await runMainLifeCycle('mounted')
 }
 
 export const destoryed = async (app) => {
   // 執行子應用的 destoryed
-  app && app.destoryed && app.destoryed()
+  app && app.unmount && app.unmount()
 
   // 執行主應用的 destoryed
   await runMainLifeCycle('destoryed')
